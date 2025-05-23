@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChanged(List<Contacts> contacts) {
 
+                        // It will help to delete the duplicated contact from the recyclerView
+                        contactsArrayList.clear();
+
                         for(Contacts c: contacts){
                             Log.v("TAGY", c.getName());
                             contactsArrayList.add(c);
