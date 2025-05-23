@@ -1,8 +1,11 @@
 package com.arsoft.contactmanagerapp;
 
 
+import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
+
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -21,8 +24,9 @@ public class Repository {
     ExecutorService executor;
     Handler handler;
 
-    public Repository(ContactDAO contactDAO) {
-        this.contactDAO = contactDAO;
+    public Repository(Application application) {
+        ContactDatabase contactDatabase = ContactDatabase.getInstance(application);
+        this.contactDAO = contactDatabase.getContactDAO();
 
         // Creates a single-threaded executor to run tasks asynchronously on a background thread.
         // This helps prevent blocking the main (UI) thread during database operations.
@@ -54,7 +58,8 @@ public class Repository {
             }
         });
     }
-    public List<Contacts> getAllContacts(){
+    public LiveData<List<Contacts>> getAllContacts(){
+
         return contactDAO.getAllContacts();
     }
 

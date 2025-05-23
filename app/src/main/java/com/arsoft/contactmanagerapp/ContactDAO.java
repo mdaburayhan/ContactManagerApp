@@ -1,5 +1,6 @@
 package com.arsoft.contactmanagerapp;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -25,6 +26,6 @@ public interface ContactDAO {
     // This annotation lets you write custom SQL queries for data operations like SELECT, UPDATE, DELETE, etc.
     // You write the raw SQL inside the parentheses, and Room generates the corresponding method implementation
     @Query("SELECT * FROM contacts_table")
-    List<Contacts> getAllContacts();
+    LiveData<List<Contacts>> getAllContacts();
 
 }
