@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Data Source
     private ContactDatabase contactDatabase;
-    private ArrayList<Contacts> contacts = new ArrayList<>();
+    private ArrayList<Contacts> contactsArrayList = new ArrayList<>();
 
     // Adapter
     private MyAdapter myAdapter;
@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        // Adapter
-        myAdapter = new MyAdapter(contacts);
 
         // Database:
         contactDatabase = ContactDatabase.getInstance(this);
@@ -57,20 +55,27 @@ public class MainActivity extends AppCompatActivity {
                 .get(MyViewModel.class);
 
         // Inserting a new Contact (Just for Testing):
-        Contacts contacts1 = new Contacts("Jack", "Jack@gmail.com");
-        viewModel.addNewContact(contacts1);
+        //Contacts contacts1 = new Contacts("Jack", "Jack@gmail.com");
+        //viewModel.addNewContact(contacts1);
 
         // Loading the Data from ROOM DB
         viewModel.getAllContacts().observe(this,
                 new Observer<List<Contacts>>() {
                     @Override
                     public void onChanged(List<Contacts> contacts) {
+
                         for(Contacts c: contacts){
                             Log.v("TAGY", c.getName());
+                            contactsArrayList.add(c);
                         }
+
+                        // Update UI with updated data
+                        myAdapter.notifyDataSetChanged();
                     }
                 });
 
+        // Adapter
+        myAdapter = new MyAdapter(contactsArrayList);
 
         // Linking the RecyclerView With the Adapter
         recyclerView.setAdapter(myAdapter);
