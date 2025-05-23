@@ -8,6 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.arsoft.contactmanagerapp.databinding.ActivityAddNewContactBinding;
 
@@ -24,9 +25,14 @@ public class AddNewContactActivity extends AppCompatActivity {
 
         contact = new Contacts();
 
+        // ViewModel
+        MyViewModel myViewModel = new ViewModelProvider(this)
+                .get(MyViewModel.class);
+
         handler = new AddNewContactClickHandler(
                 contact,
-                this
+                this,
+                myViewModel
         );
         binding.setContact(contact);
         binding.setClickHandler(handler);
