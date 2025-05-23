@@ -15,6 +15,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/back2"
         tools:context=".MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:src="@drawable/ic_add"
             android:onClick="@{clickHandler::onFabClicked}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
